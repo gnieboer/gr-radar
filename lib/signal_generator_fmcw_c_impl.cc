@@ -80,7 +80,7 @@ namespace gr {
 			  gr_vector_void_star &output_items)
     {
         gr_complex *out = (gr_complex *) output_items[0];
-        
+
         // Integrate phase for iq signal
         for(int i=0; i<noutput_items; i++){
 			// Set tag on every packet_len-th item
@@ -91,7 +91,7 @@ namespace gr {
 			
 			// Write sample
 			*out++ = d_amplitude*exp(d_phase);
-			d_phase = 1j*std::fmod(imag(d_phase)+2*M_PI*d_waveform[d_wv_counter]/(float)d_samp_rate,2*M_PI);
+			d_phase = GRR_1J*(float)std::fmod(imag(d_phase)+2*M_PI*d_waveform[d_wv_counter]/(float)d_samp_rate,2*M_PI);
 			d_wv_counter++;
 		}
 

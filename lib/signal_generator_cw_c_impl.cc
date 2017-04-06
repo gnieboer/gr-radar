@@ -68,7 +68,7 @@ namespace gr {
 			  gr_vector_void_star &output_items)
     {
         gr_complex *out = (gr_complex *) output_items[0];
-        
+
         // Set output to zero
         std::memset(out, 0, noutput_items*sizeof(gr_complex));
         
@@ -76,11 +76,10 @@ namespace gr {
         for(int i=0; i<noutput_items; i++){
 			// Set tag on every packet_len-th item
 			if((nitems_written(0)+i)%d_packet_len==0) add_item_tag(0, nitems_written(0)+i, d_key, d_value, d_srcid);
-			
 			// Write sample
 			for(int k=0; k<d_num_freq; k++){ // Go through frequencies
 				out[i] += d_amplitude/(float)d_num_freq*exp(d_phase[k]); // output amplitude is normed on d_amplitude
-				d_phase[k] = 1j*std::fmod(imag(d_phase[k])+2*M_PI*d_frequency[k]/(float)d_samp_rate,2*M_PI);
+				d_phase[k] = GRR_1J*(float)std::fmod(imag(d_phase[k])+2*M_PI*d_frequency[k]/(float)d_samp_rate,2*M_PI);
 			}
 		}
 

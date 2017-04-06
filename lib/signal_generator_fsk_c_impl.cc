@@ -74,7 +74,7 @@ namespace gr {
 			  gr_vector_void_star &output_items)
     {
         gr_complex *out = (gr_complex *) output_items[0];
-        
+
         // Integrate phase for iq signal
         for(int i=0; i<noutput_items; i++){
 			// Set tag on every packet_len-th item
@@ -90,8 +90,8 @@ namespace gr {
 			if(d_state) out[i] = d_amplitude*exp(d_phase_high);
 			else out[i] = d_amplitude*exp(d_phase_low); // start with low_freq (state=0)
 			
-			d_phase_low = 1j*std::fmod(imag(d_phase_low)+2*M_PI*d_freq_low/(float)d_samp_rate,2*M_PI);
-			d_phase_high = 1j*std::fmod(imag(d_phase_high)+2*M_PI*d_freq_high/(float)d_samp_rate,2*M_PI);
+			d_phase_low = GRR_1J*(float)std::fmod(imag(d_phase_low)+2*M_PI*d_freq_low/(float)d_samp_rate,2*M_PI);
+			d_phase_high = GRR_1J*(float)std::fmod(imag(d_phase_high)+2*M_PI*d_freq_high/(float)d_samp_rate,2*M_PI);
 		}
 
         // Tell runtime system how many output items we produced.

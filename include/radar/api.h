@@ -30,4 +30,14 @@
 #  define RADAR_API __GR_ATTR_IMPORT
 #endif
 
+
+#ifdef _MSC_VER
+const std::complex <float> c1j(0.0, 1.0);
+#define GRR_1J c1j
+#else
+#define GRR_1J 1j
+#endif
+
+#define c_light 3e8
+
 #endif /* INCLUDED_RADAR_API_H */

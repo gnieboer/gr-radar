@@ -161,14 +161,14 @@ namespace gr {
 				for(int i=0; i<noutput_items; i++){
 					// Doppler shift filter and rescaling amplitude with rcs
 					d_filt_doppler[k][i] = std::exp(d_phase_doppler)*d_scale_ampl[k];
-					d_phase_doppler = 1j*std::fmod(std::imag(d_phase_doppler)+2*M_PI*d_doppler[k]/(float)d_samp_rate,2*M_PI); // integrate phase (with plus!)
+					d_phase_doppler = GRR_1J*(float)std::fmod(std::imag(d_phase_doppler)+2*M_PI*d_doppler[k]/(float)d_samp_rate,2*M_PI); // integrate phase (with plus!)
 				}
 				
 				d_filt_time[k].resize(noutput_items);
 				d_phase_time = 0;
 				for(int i=0; i<noutput_items; i++){
 					// Time shift filter, uses target range
-					d_phase_time = 1j*std::fmod(2*M_PI*(d_timeshift[k]) // range time shift
+					d_phase_time = GRR_1J*(float)std::fmod(2*M_PI*(d_timeshift[k]) // range time shift
 						*d_freq[i],2*M_PI); // integrate phase (with minus!)
 					d_filt_time[k][i] = std::exp(-d_phase_time)/(float)noutput_items; // div with noutput_item to correct amplitude after fft->ifft
 				}
@@ -178,7 +178,7 @@ namespace gr {
 					d_phase_time = 0;
 					for(int i=0; i<noutput_items; i++){
 						// Time shift filter, uses azimuth and RX position
-						d_phase_time = 1j*std::fmod(2*M_PI*(d_timeshift_azimuth[l][k]) // azimuth time shift
+						d_phase_time = GRR_1J*(float)std::fmod(2*M_PI*(d_timeshift_azimuth[l][k]) // azimuth time shift
 							*d_freq[i],2*M_PI); // integrate phase (with minus!)
 						d_filt_time_azimuth[l][k][i] = std::exp(-d_phase_time); // do not div with noutput_items, is done with range timeshift filter
 					}
@@ -193,7 +193,7 @@ namespace gr {
 		if(d_rndm_phaseshift){
 			gr_complex phase_random_hold;
 			for(int k=0; k<d_num_targets; k++){
-				phase_random_hold = 1j*2*M_PI*float((std::rand()%1000+1)/1000.0);
+				phase_random_hold = GRR_1J*2.0f*(float)M_PI*float((std::rand()%1000+1)/1000.0);
 				d_phase_random = std::exp(phase_random_hold);
 				std::fill_n(&d_filt_phase[k][0],noutput_items,d_phase_random);
 			}

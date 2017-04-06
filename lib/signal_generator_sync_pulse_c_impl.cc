@@ -45,6 +45,7 @@ namespace gr {
     {
 		d_packet_len = packet_len;
 		
+
 		d_key = pmt::string_to_symbol(len_key); // set tag identifier for tagged stream
 		d_value = pmt::from_long(packet_len); // set length of 1 cw packet as tagged stream
 		d_srcid = pmt::string_to_symbol("sig_gen_sync"); // set block identifier
@@ -60,19 +61,19 @@ namespace gr {
 		int k=0;
 		while(pulse_wait<pulse_pause.size() || pulse_send<pulse_len.size()){
 			if(pulse_wait<pulse_pause.size()){ // Setup wait samples
-				for(int p=0; p<pulse_pause[pulse_wait]; p++) d_out_buffer[k+p] = 0+1j*0;
+				for(int p=0; p<pulse_pause[pulse_wait]; p++) d_out_buffer[k+p] = 0.0f+GRR_1J*0.0f;
 				k += pulse_pause[pulse_wait];
 				pulse_wait++;
 			}
 			if(pulse_send<pulse_len.size()){ // Setup pulse samples
-				for(int p=0; p<pulse_len[pulse_send]; p++) d_out_buffer[k+p] = pulse_amplitude+1j*0;
+				for(int p=0; p<pulse_len[pulse_send]; p++) d_out_buffer[k+p] = pulse_amplitude+ GRR_1J*0.0f;
 				k += pulse_len[pulse_send];
 				pulse_send++;
 			}
 		}
 		if(k<packet_len){ // fill with zeros
 			for(int p=0; p<packet_len-k; p++){
-				d_out_buffer[k+p] = 0+1j*0;
+				d_out_buffer[k+p] = 0.0f+GRR_1J*0.0f;
 			}
 		}
 	}
