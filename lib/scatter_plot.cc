@@ -84,7 +84,7 @@ namespace gr {
 			// Clear plot from old markers
 			for(int k=0; k<d_marker.size(); k++) d_marker[k]->detach();
 			
-			if(not(*d_xy_read)){
+			if(!(*d_xy_read)){
 				// Set new marker
 				for(int k=0; k<d_x->size(); k++){ // len(range)==len(velocity), same size x and y!
 					if(k<d_marker.size()){

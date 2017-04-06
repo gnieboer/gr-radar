@@ -181,7 +181,7 @@ namespace gr {
           }
         }
 
-        if(not(found_range&&found_power)) throw std::runtime_error("range or power identifier (symbol) not found");
+        if(!(found_range&&found_power)) throw std::runtime_error("range or power identifier (symbol) not found");
 
         d_range = pmt::f32vector_elements(d_prange);
         d_power = pmt::f32vector_elements(d_ppower);

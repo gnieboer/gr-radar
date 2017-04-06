@@ -89,7 +89,7 @@ namespace gr {
 				d_marker[marker_index][k]->detach();
 			}
 			
-			if(not(*d_y_read)){
+			if(!(*d_y_read)){
 				// Set new marker
 				for(int k=0; k<d_y->size(); k++){
 					if(k<d_marker[marker_index].size()){

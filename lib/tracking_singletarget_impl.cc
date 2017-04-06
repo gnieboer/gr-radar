@@ -276,7 +276,7 @@ namespace gr {
     
     bool
     tracking_singletarget_impl::tracking(){	
-		bool is_valid = not(d_is_empty); // measurement is valid if vectors are not empty
+		bool is_valid = !(d_is_empty); // measurement is valid if vectors are not empty
 			
 		// Calc time difference and matrix Q
 		d_delta_t = d_time-d_time_last; // time difference
